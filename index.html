@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acne Warrior Ingredient Decoder | Professional Skin Analysis Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c5530;
+            --primary-light: #4a7c59;
+            --secondary: #8b4513;
+            --accent: #d4af37;
+            --light: #f8f9fa;
+            --dark: #2d3748;
+            --gray: #718096;
+            --light-gray: #e2e8f0;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --error: #e53e3e;
+            --facebook: #1877f2;
+            --instagram: #e4405f;
+            --threads: #000000;
+            --pinterest: #bd081c;
+            --tiktok: #000000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .logo-container {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            overflow: hidden;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .header-content h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .header-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.3);
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Tool Container */
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 968px) {
+            .tool-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group h3 {
+            margin-bottom: 18px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group h3 i {
+            color: var(--accent);
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .option-card {
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-card.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #f0f7f0 0%, #e8f4e8 100%);
+            box-shadow: 0 5px 15px rgba(44, 85, 48, 0.15);
+        }
+        
+        .option-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .option-icon {
+            font-size: 1.8rem;
+            color: var(--primary-light);
+            margin-bottom: 10px;
+        }
+        
+        .option-card h4 {
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .option-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .results-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+        
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .result-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .result-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .analysis-visualization {
+            margin: 25px 0;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .analysis-visualization h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .analysis-visualization img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Social Sharing */
+        .social-sharing {
+            margin: 30px 0;
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .social-sharing h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .social-btn.facebook {
+            background: var(--facebook);
+        }
+
+        .social-btn.instagram {
+            background: var(--instagram);
+        }
+
+        .social-btn.threads {
+            background: var(--threads);
+        }
+
+        .social-btn.pinterest {
+            background: var(--pinterest);
+        }
+
+        .social-btn.tiktok {
+            background: var(--tiktok);
+        }
+
+        .social-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* Product Card */
+        .product-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .product-image {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 2rem;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-content {
+            flex: 1;
+        }
+        
+        .product-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-tag {
+            background: var(--light-gray);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .product-description {
+            margin-bottom: 15px;
+        }
+        
+        .product-description h4 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .product-description h4 i {
+            color: var(--accent);
+        }
+        
+        .product-description p {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .affiliate-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--secondary), #a05a2c);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .affiliate-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 85, 48, 0.3);
+        }
+        
+        .btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, var(--gray), #8a9aad);
+        }
+        
+        .reset-btn:hover {
+            box-shadow: 0 5px 15px rgba(113, 128, 150, 0.3);
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Disclaimer */
+        .disclaimer {
+            background: #fff8e1;
+            border-left: 4px solid var(--warning);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .disclaimer h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .disclaimer h3 i {
+            color: var(--warning);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--light-gray);
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--gray);
+            z-index: 2;
+        }
+        
+        .step.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            height: 2px;
+            background: var(--light-gray);
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-card {
+                flex-direction: column;
+            }
+            
+            .product-image {
+                width: 100%;
+                height: 200px;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-btn {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="images/skincare-logo.png" alt="Acne Warrior Logo">
+            </div>
+            <div class="header-content">
+                <h1>Acne Warrior Ingredient Decoder</h1>
+                <p>Advanced skin analysis technology to match your unique skin profile with scientifically-backed solutions</p>
+            </div>
+        </header>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <h2>Advanced Skin Analysis Technology</h2>
+                <p>Our proprietary algorithm analyzes your skin profile against thousands of data points to recommend the most effective ingredients and products for your specific acne concerns.</p>
+                <div class="btn" onclick="document.getElementById('acne-type-options').scrollIntoView({behavior: 'smooth'})">
+                    Start Your Skin Analysis
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/skin-analysis-graphic.png" alt="Advanced Skin Analysis Technology Visualization">
+            </div>
+        </div>
+        
+        <div class="tool-container">
+            <div class="form-section">
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                
+                <div class="step-indicator">
+                    <div class="step active">1</div>
+                    <div class="step">2</div>
+                    <div class="step">3</div>
+                    <div class="step">4</div>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-diagnoses"></i> Primary Acne Type</h3>
+                    <div class="options-grid" id="acne-type-options">
+                        <div class="option-card" data-value="comedonal">
+                            <div class="option-icon">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <h4>Comedonal</h4>
+                            <p>Blackheads & Whiteheads</p>
+                        </div>
+                        <div class="option-card" data-value="inflammatory">
+                            <div class="option-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h4>Inflammatory</h4>
+                            <p>Red, Tender Bumps</p>
+                        </div>
+                        <div class="option-card" data-value="cystic">
+                            <div class="option-icon">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <h4>Cystic</h4>
+                            <p>Deep, Painful Lumps</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-hand-holding-heart"></i> Skin Sensitivity</h3>
+                    <div class="options-grid" id="sensitivity-options">
+                        <div class="option-card" data-value="sensitive">
+                            <div class="option-icon">
+                                <i class="fas fa-temperature-high"></i>
+                            </div>
+                            <h4>Very Sensitive</h4>
+                            <p>Easily red, stings, or reacts</p>
+                        </div>
+                        <div class="option-card" data-value="not-sensitive">
+                            <div class="option-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Not Particularly Sensitive</h4>
+                            <p>Rarely reacts to products</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-flask"></i> Preferred Ingredient</h3>
+                    <div class="options-grid" id="ingredient-options">
+                        <div class="option-card" data-value="salicylic">
+                            <div class="option-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Salicylic Acid</h4>
+                            <p>Exfoliates inside pores</p>
+                        </div>
+                        <div class="option-card" data-value="niacinamide">
+                            <div class="option-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h4>Niacinamide</h4>
+                            <p>Calms inflammation & regulates oil</p>
+                        </div>
+                        <div class="option-card" data-value="unsure">
+                            <div class="option-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h4>Recommend For Me</h4>
+                            <p>AI-powered ingredient matching</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-pump-soap"></i> Product Form</h3>
+                    <div class="options-grid" id="form-options">
+                        <div class="option-card" data-value="cleanser">
+                            <div class="option-icon">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <h4>Wash-off Cleanser</h4>
+                            <p>Good for all-over treatment</p>
+                        </div>
+                        <div class="option-card" data-value="treatment">
+                            <div class="option-icon">
+                                <i class="fas fa-prescription-bottle"></i>
+                            </div>
+                            <h4>Leave-on Treatment</h4>
+                            <p>Serum or moisturizer for targeted effects</p>
+                        </div>
+                        <div class="option-card" data-value="spot">
+                            <div class="option-icon">
+                                <i class="fas fa-dot-circle"></i>
+                            </div>
+                            <h4>Spot Treatment</h4>
+                            <p>For individual blemishes</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn" id="submit-btn" disabled>Analyze My Skin Profile</button>
+                <button class="btn reset-btn" id="reset-btn">Start Over</button>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing your skin profile with our AI technology...</p>
+                </div>
+            </div>
+            
+            <div class="results-section" id="results-section">
+                <div class="result-header">
+                    <h2>Your Personalized Acne-Fighting Strategy</h2>
+                    <p>Based on advanced analysis of your skin profile and concerns</p>
+                </div>
+
+                <div class="analysis-visualization">
+                    <h3><i class="fas fa-chart-line"></i> Your Skin Analysis Results</h3>
+                    <img src="images/skin-analysis-results.png" alt="Personalized Skin Analysis Results Visualization">
+                </div>
+
+                <div class="social-sharing">
+                    <h3><i class="fas fa-share-alt"></i> Share Your Results</h3>
+                    <div class="social-buttons">
+                        <a href="#" class="social-btn facebook" id="share-facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" class="social-btn instagram" id="share-instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="#" class="social-btn threads" id="share-threads">
+                            <i class="fab fa-threads"></i>
+                            <span>Threads</span>
+                        </a>
+                        <a href="#" class="social-btn pinterest" id="share-pinterest">
+                            <i class="fab fa-pinterest"></i>
+                            <span>Pinterest</span>
+                        </a>
+                        <a href="#" class="social-btn tiktok" id="share-tiktok">
+                            <i class="fab fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div id="results-content">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+                
+                <div class="disclaimer">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h3>
+                    <p><strong>Educational Purposes Only:</strong> The information provided by the Acne Warrior Ingredient Decoder is for educational purposes only and is not intended as medical advice. It is not a substitute for professional dermatological advice, diagnosis, or treatment.</p>
+                    <p><strong>Consult a Professional:</strong> Always perform a patch test before using any new skincare product and consult with a healthcare professional, such as a dermatologist, for persistent skin concerns.</p>
+                    <p><strong>Amazon Affiliate:</strong> As an Amazon Associate, we earn from qualifying purchases. This helps fund our research and allows us to continue providing this free tool.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Product database - EXPANDED WITH COMPREHENSIVE COVERAGE
+            const products = {
+                // Comedonal + Not Sensitive combinations
+                'comedonal-not-sensitive-salicylic-treatment': {
+                    name: 'CeraVe Salicylic Acid Acne Control Gel',
+                    science: 'Comedonal acne is caused by clogged pores. Salicylic Acid (a BHA) is oil-soluble, allowing it to penetrate deep into pores to dissolve the mix of oil and dead skin cells that cause clogs.',
+                    description: 'This gel contains a sustained-release Salicylic Acid to help prevent clogged pores without over-drying. It\'s formulated with ceramides to help maintain the skin\'s natural barrier. Reviewers consistently note a significant reduction in blackheads and whiteheads with regular use.',
+                    usage: 'Start by applying a thin layer 3 times a week after cleansing, gradually increasing to daily use as tolerated.',
+                    tags: ['Salicylic Acid', 'Leave-on Treatment', 'Non-Drying'],
+                    affiliateLink: 'https://www.amazon.com/CeraVe-Salicylic-Treatment-Glycolic-Breakouts/dp/B097WMCYYJ/?tag=acnewarrior-20',
+                    image: 'images/cerave-salicylic-acid-gel.jpg'
+                },
+                'comedonal-not-sensitive-salicylic-cleanser': {
+                    name: 'La Roche-Posay Effaclar Medicated Gel Acne Face Wash',
+                    science: 'Comedonal acne benefits from daily exfoliation inside the pores. Salicylic Acid cleansers provide this benefit with less risk of irritation than leave-on treatments.',
+                    description: 'This medicated face wash contains 2% Salicylic Acid to effectively unclog pores and prevent new blackheads from forming. It\'s formulated with La Roche-Posay Thermal Spring Water to soothe the skin.',
+                    usage: 'Use once daily, preferably in the evening, massaging onto damp skin for 30-60 seconds before rinsing thoroughly.',
+                    tags: ['Salicylic Acid', 'Wash-off Cleanser', 'Non-Drying'],
+                    affiliateLink: 'https://www.amazon.com/Roche-Posay-Effaclar-Exfoliant-Treatment-Blemishes/dp/B0DFJQPHVC/?tag=acnewarrior-20',
+                    image: 'images/La-Roche-Posay-Effaclar-Medicated-Gel-Acne-Face-Wash.jpg'
+                },
+                'comedonal-not-sensitive-niacinamide-treatment': {
+                    name: 'The Ordinary Niacinamide 10% + Zinc 1%',
+                    science: 'Niacinamide helps regulate sebum production and improve skin barrier function, making it effective for comedonal acne by preventing pore clogging.',
+                    description: 'This serum helps control oil production and minimize the appearance of pores. Users with comedonal acne report fewer blackheads and improved skin texture with regular use.',
+                    usage: 'Apply a few drops to the entire face morning and evening after cleansing.',
+                    tags: ['Niacinamide', 'Oil Control', 'Pore Refining'],
+                    affiliateLink: 'https://www.amazon.com/Ordinary-Niacinamide-10-Zinc-30ml/dp/B01MDTVZTZ/?tag=acnewarrior-20',
+                    image: 'images/ordinary-niacinamide-serum.jpg'
+                },
+                'comedonal-not-sensitive-unsure-treatment': {
+                    name: 'Paula\'s Choice 2% BHA Liquid Exfoliant',
+                    science: 'Beta Hydroxy Acid (BHA) like Salicylic Acid is ideal for comedonal acne as it can penetrate deep into pores to dissolve debris and exfoliate the pore lining.',
+                    description: 'This cult-favorite exfoliant effectively unclogs pores and smooths skin texture. Regular use helps prevent blackheads and whiteheads from forming.',
+                    usage: 'Apply once daily with a cotton pad after cleansing and before moisturizing.',
+                    tags: ['Salicylic Acid', 'Exfoliant', 'Pore Refining'],
+                    affiliateLink: 'https://www.amazon.com/Paulas-Choice-Exfoliant-Facial-Application/dp/B08T5SP5Z5/?tag=acnewarrior-20',
+                    image: 'images/paulas-choice-benzoyl-peroxide.jpg'
+                },
+                
+                // Comedonal + Sensitive combinations
+                'comedonal-sensitive-salicylic-cleanser': {
+                    name: 'CeraVe Renewing SA Cleanser',
+                    science: 'A gentle yet effective approach for sensitive skin with comedonal acne. Salicylic Acid helps exfoliate and unclog pores while ceramides support the skin barrier.',
+                    description: 'This gentle cleanser is suitable for sensitive skin types and addresses comedonal acne concerns without over-drying. It\'s a dermatologist-recommended favorite that provides gentle exfoliation.',
+                    usage: 'Use once or twice daily, massaging onto damp skin before rinsing thoroughly.',
+                    tags: ['Salicylic Acid', 'Gentle Cleanser', 'For Sensitive Skin'],
+                    affiliateLink: 'https://www.amazon.com/CeraVe-Salicylic-Cleanser-Exfoliating-Fragrance/dp/B08CQ9T6KN/?tag=acnewarrior-20',
+                    image: 'images/cerave-renewing-cleanser.jpg'
+                },
+                'comedonal-sensitive-niacinamide-treatment': {
+                    name: 'Good Molecules Niacinamide Brightening Toner',
+                    science: 'Niacinamide is gentle enough for sensitive skin while helping to regulate oil production and improve skin barrier function, preventing comedonal acne.',
+                    description: 'This gentle toner contains a lower concentration of Niacinamide suitable for sensitive skin. It helps balance oil production without causing irritation.',
+                    usage: 'Apply with a cotton pad after cleansing, morning and evening.',
+                    tags: ['Niacinamide', 'Gentle', 'For Sensitive Skin'],
+                    affiliateLink: 'https://www.amazon.com/GOOD-MOLECULES-NIACINAMIDE-BRIGHTENING-Toner/dp/B08C2BLPD2/?tag=acnewarrior-20',
+                    image: 'images/good-molecules-niacinamide-toner.jpg'
+                },
+                'comedonal-sensitive-unsure-cleanser': {
+                    name: 'La Roche-Posay Toleriane Purifying Foaming Cleanser',
+                    science: 'A gentle, non-stripping cleanser that effectively removes impurities without compromising the skin barrier, ideal for sensitive skin with comedonal concerns.',
+                    description: 'This foaming cleanser thoroughly cleanses without over-drying or irritating sensitive skin. It helps maintain the skin\'s natural pH balance while addressing mild comedonal acne.',
+                    usage: 'Use morning and evening, massaging onto damp skin before rinsing thoroughly.',
+                    tags: ['Gentle Cleanser', 'For Sensitive Skin', 'pH Balanced'],
+                    affiliateLink: 'https://www.amazon.com/Roche-Posay-Toleriane-Purifying-Sensitive-Niacinamide/dp/B01N34XW93/?tag=acnewarrior-20',
+                    image: 'images/La-Roche-Posay-Toleriane-Purifying-Foaming-Cleanser.jpg'
+                },
+                
+                // Inflammatory + Not Sensitive combinations
+                'inflammatory-not-sensitive-niacinamide-treatment': {
+                    name: 'The Ordinary Niacinamide 10% + Zinc 1%',
+                    science: 'Inflammatory acne responds well to Niacinamide\'s anti-inflammatory properties, which help reduce redness and regulate sebum production.',
+                    description: 'This potent serum helps calm inflammation and reduce the appearance of blemishes. Users with inflammatory acne report noticeable improvements in skin texture and reduction in breakouts.',
+                    usage: 'Apply a few drops to the entire face morning and evening after cleansing.',
+                    tags: ['Niacinamide', 'Anti-inflammatory', 'Oil-Regulating'],
+                    affiliateLink: 'https://www.amazon.com/Ordinary-Niacinamide-10-Zinc-30ml/dp/B01MDTVZTZ/?tag=acnewarrior-20',
+                    image: 'images/ordinary-niacinamide-serum.jpg'
+                },
+                'inflammatory-not-sensitive-salicylic-spot': {
+                    name: 'Hero Cosmetics Mighty Patch Surface',
+                    science: 'Salicylic Acid spot treatments target individual inflammatory lesions by exfoliating inside pores and reducing inflammation.',
+                    description: 'These invisible patches contain Salicylic Acid to target inflammatory breakouts while preventing picking and further irritation.',
+                    usage: 'Apply to clean, dry skin on individual blemishes and leave on for several hours or overnight.',
+                    tags: ['Salicylic Acid', 'Spot Treatment', 'Invisible'],
+                    affiliateLink: 'https://www.amazon.com/Mighty-Patch-Surface-Best-Selling-Hydrocolloid/dp/B07KJXFJHF/?tag=acnewarrior-20',
+                    image: 'images/Hero-Cosmetics-Mighty-Patch-Surface.jpg'
+                },
+                'inflammatory-not-sensitive-unsure-treatment': {
+                    name: 'Paula\'s Choice CLEAR Regular Strength Treatment',
+                    science: 'A combination approach using both anti-inflammatory and exfoliating ingredients to address inflammatory acne from multiple angles.',
+                    description: 'This treatment combines Benzoyl Peroxide and Salicylic Acid to target existing inflammation while preventing new breakouts from forming.',
+                    usage: 'Apply a thin layer to affected areas once daily, gradually increasing to twice daily as tolerated.',
+                    tags: ['Multi-Action', 'Anti-inflammatory', 'Treatment'],
+                    affiliateLink: 'https://www.amazon.com/Paulas-Choice-Strength-Salicylic-PACKAGING/dp/B01DQ6Y3ZC/?tag=acnewarrior-20',
+                    image: 'images/paulas-choice-benzoyl-peroxide.jpg'
+                },
+                
+                // Inflammatory + Sensitive combinations
+                'inflammatory-sensitive-niacinamide-treatment': {
+                    name: 'The Ordinary Niacinamide 10% + Zinc 1%',
+                    science: 'Inflammatory acne involves redness and swelling. Niacinamide is a powerhouse anti-inflammatory ingredient that helps calm redness, regulate sebum production, and strengthen the skin barrier—making it ideal for sensitive skin that can\'t tolerate harsh actives.',
+                    description: 'This serum is a cult-favorite for a reason. It offers a high concentration of Niacinamide at an accessible price. Users with sensitive and inflamed skin frequently report calmer, less red skin and a noticeable reduction in the size and frequency of breakouts within 2-3 weeks.',
+                    usage: 'Apply a few drops to the entire face morning and evening after cleansing. If you\'re new to Niacinamide, start with once daily.',
+                    tags: ['Niacinamide', 'Anti-inflammatory', 'For Sensitive Skin'],
+                    affiliateLink: 'https://www.amazon.com/Ordinary-Niacinamide-10-Zinc-30ml/dp/B01MDTVZTZ/?tag=acnewarrior-20',
+                    image: 'images/ordinary-niacinamide-serum.jpg'
+                },
+                'inflammatory-sensitive-unsure-treatment': {
+                    name: 'COSRX Snail Mucin 96% Power Repairing Essence',
+                    science: 'For sensitive, inflamed skin, sometimes the best approach is repair and hydration rather than active ingredients. Snail mucin is renowned for its healing, anti-inflammatory, and skin-barrier repairing properties.',
+                    description: 'This lightweight essence contains 96% snail secretion filtrate to hydrate, soothe irritation, and repair damaged skin. It helps calm active breakouts while fading post-acne red marks.',
+                    usage: 'Apply a generous amount to the face after cleansing and toning, both morning and night.',
+                    tags: ['Snail Mucin', 'Repairing', 'For Sensitive Skin'],
+                    affiliateLink: 'https://www.amazon.com/COSRX-Advanced-Hydrating-Skincare-Beginners/dp/B0C1Y8652X/?tag=acnewarrior-20',
+                    image: 'images/cosrx-snail-mucin.jpg'
+                },
+                'inflammatory-sensitive-salicylic-cleanser': {
+                    name: 'CeraVe Acne Foaming Cream Cleanser',
+                    science: 'A gentle benzoyl peroxide cleanser that treats inflammatory acne without over-drying sensitive skin, as it\'s washed off rather than left on.',
+                    description: 'This creamy cleanser contains 4% Benzoyl Peroxide to target acne-causing bacteria while being formulated with ceramides to maintain the skin barrier. Ideal for sensitive skin that needs acne treatment.',
+                    usage: 'Use once daily, massaging onto damp skin for 60 seconds before rinsing thoroughly.',
+                    tags: ['Benzoyl Peroxide', 'Gentle Cleanser', 'For Sensitive Skin'],
+                    affiliateLink: 'https://www.amazon.com/CeraVe-Treatment-Hyaluronic-Niacinamide-Sensitive/dp/B07YLJPMC3/?tag=acnewarrior-20',
+                    image: 'images/CeraVe-Acne-Foaming-Cream-Cleanser.jpg'
+                },
+                
+                // Cystic + Not Sensitive combinations
+                'cystic-not-sensitive-unsure-spot': {
+                    name: 'Paula\'s Choice CLEAR Regular Strength Daily Skin Clearing Treatment with 2.5% Benzoyl Peroxide',
+                    science: 'Cystic acne is severe, deep, and often hormonal. Benzoyl Peroxide is one of the most effective over-the-counter treatments because it kills acne-causing bacteria and reduces inflammation deep within the skin.',
+                    description: 'While many drugstore treatments use 10% BP, studies show 2.5% is just as effective at killing bacteria with far less irritation. This formula is gentle enough for daily use but potent enough to tackle deep, cystic blemishes. Reviews are filled with stories from users who call this a "last resort product that actually works" on painful cysts.',
+                    usage: 'Apply a pea-sized amount only to affected areas after cleansing and moisturizing. Warning: It can bleach fabrics and towels.',
+                    tags: ['Benzoyl Peroxide', 'Spot Treatment', 'For Severe Acne'],
+                    affiliateLink: 'https://www.amazon.com/Paulas-Choice-Strength-Salicylic-PACKAGING/dp/B01DQ6Y3ZC/?tag=acnewarrior-20',
+                    image: 'images/paulas-choice-benzoyl-peroxide.jpg'
+                },
+                'cystic-not-sensitive-salicylic-treatment': {
+                    name: 'The Ordinary Salicylic Acid 2% Masque',
+                    science: 'For cystic acne, a weekly treatment mask with Salicylic Acid can help reduce inflammation and prevent new cysts from forming by deep-cleaning pores.',
+                    description: 'This intensive treatment mask contains 2% Salicylic Acid to deeply exfoliate and help prevent cystic breakouts. Use weekly to maintain clear skin.',
+                    usage: 'Apply a thin layer to clean, dry skin once weekly. Leave on for 10 minutes before rinsing thoroughly.',
+                    tags: ['Salicylic Acid', 'Treatment Mask', 'Weekly Use'],
+                    affiliateLink: 'https://www.amazon.com/ORDINARY-Salicylic-Clarifying-Charcoal-Blemish-Prone/dp/B07SZ9PTLP/?tag=acnewarrior-20',
+                    image: 'images/The-Ordinary-Salicylic-Acid-Masque.jpg'
+                },
+                
+                // Cystic + Sensitive combinations
+                'cystic-sensitive-unsure-spot': {
+                    name: 'Hero Cosmetics Mighty Patch Original',
+                    science: 'For sensitive skin with cystic acne, hydrocolloid patches provide a gentle, non-irritating way to extract impurities and reduce inflammation.',
+                    description: 'These hydrocolloid patches work overnight to gently draw out impurities from deep cystic blemishes without causing additional irritation. They create a protective barrier that prevents picking and promotes healing.',
+                    usage: 'Apply a patch to clean, dry skin over the blemish and leave on for 6-8 hours or overnight.',
+                    tags: ['Hydrocolloid', 'Gentle', 'Spot Treatment'],
+                    affiliateLink: 'https://www.amazon.com/Mighty-Patch-MP008-Variety-Pack/dp/B085P3TYPS/?tag=acnewarrior-20',
+                    image: 'images/Hero-Cosmetics-Mighty-Patch-Original.jpg'
+                },
+                'cystic-sensitive-niacinamide-treatment': {
+                    name: 'Glow Recipe Watermelon Glow Niacinamide Dew Drops',
+                    science: 'A gentle niacinamide serum that helps reduce inflammation associated with cystic acne while being suitable for sensitive skin types.',
+                    description: 'This lightweight serum contains niacinamide in a gentle, hydrating formula that calms inflammation without irritating sensitive skin. It helps reduce the redness and swelling associated with cystic breakouts.',
+                    usage: 'Apply 2-3 drops to the face morning and evening after cleansing.',
+                    tags: ['Niacinamide', 'Gentle', 'For Sensitive Skin'],
+                    affiliateLink: 'https://www.amazon.com/Glow-Recipe-Watermelon-Niacinamide-Drops/dp/B08T8L371P/?tag=acnewarrior-20',
+                    image: 'images/Glow-Recipe-Watermelon-Glow-Niacinamide-Dew-Drops.jpg'
+                }
+            };
+
+            // Default fallback product
+            const defaultProduct = {
+                name: 'CeraVe Renewing SA Cleanser',
+                science: 'A balanced approach for multiple acne concerns. Salicylic Acid helps exfoliate and unclog pores while ceramides support the skin barrier.',
+                description: 'This gentle cleanser is suitable for most skin types and addresses multiple acne concerns without over-drying. It\'s a dermatologist-recommended favorite.',
+                usage: 'Use once or twice daily, massaging onto damp skin before rinsing thoroughly.',
+                tags: ['Salicylic Acid', 'Gentle Cleanser', 'Dermatologist Recommended'],
+                affiliateLink: 'https://www.amazon.com/CeraVe-Salicylic-Cleanser-Exfoliating-Fragrance/dp/B08CQ9T6KN/?tag=acnewarrior-20',
+                image: 'images/cerave-renewing-cleanser.jpg'
+            };
+
+            // DOM elements
+            const acneTypeOptions = document.getElementById('acne-type-options');
+            const sensitivityOptions = document.getElementById('sensitivity-options');
+            const ingredientOptions = document.getElementById('ingredient-options');
+            const formOptions = document.getElementById('form-options');
+            const submitBtn = document.getElementById('submit-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const loadingElement = document.getElementById('loading');
+            const resultsSection = document.getElementById('results-section');
+            const resultsContent = document.getElementById('results-content');
+            const progressBar = document.getElementById('progress-bar');
+            const steps = document.querySelectorAll('.step');
+
+            // Social sharing buttons
+            const shareFacebook = document.getElementById('share-facebook');
+            const shareInstagram = document.getElementById('share-instagram');
+            const shareThreads = document.getElementById('share-threads');
+            const sharePinterest = document.getElementById('share-pinterest');
+            const shareTiktok = document.getElementById('share-tiktok');
+
+            // User selections
+            let userSelections = {
+                acneType: null,
+                sensitivity: null,
+                ingredient: null,
+                productForm: null
+            };
+
+            // Current product for sharing
+            let currentProduct = null;
+
+            // Set up option selection
+            function setupOptionSelection(container, property, stepIndex) {
+                const options = container.querySelectorAll('.option-card');
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        // Remove selected class from all options in this group
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        // Add selected class to clicked option
+                        option.classList.add('selected');
+                        // Update user selection
+                        userSelections[property] = option.getAttribute('data-value');
+                        // Update progress
+                        updateProgress();
+                        // Check if we can enable the submit button
+                        checkFormCompletion();
+                    });
+                });
+            }
+
+            // Update progress bar and steps
+            function updateProgress() {
+                const totalSelections = Object.values(userSelections).filter(val => val !== null).length;
+                const progressPercentage = (totalSelections / 4) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                steps.forEach((step, index) => {
+                    if (index < totalSelections) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+            }
+
+            // Initialize option selection for all question groups
+            setupOptionSelection(acneTypeOptions, 'acneType', 0);
+            setupOptionSelection(sensitivityOptions, 'sensitivity', 1);
+            setupOptionSelection(ingredientOptions, 'ingredient', 2);
+            setupOptionSelection(formOptions, 'productForm', 3);
+
+            // Check if form is complete to enable submit button
+            function checkFormCompletion() {
+                const isComplete = userSelections.acneType && 
+                                  userSelections.sensitivity && 
+                                  userSelections.ingredient && 
+                                  userSelections.productForm;
+                submitBtn.disabled = !isComplete;
+            }
+
+            // Handle form submission
+            submitBtn.addEventListener('click', function() {
+                // Show loading state
+                loadingElement.style.display = 'block';
+                resultsSection.style.display = 'none';
+                submitBtn.disabled = true;
+                
+                // Simulate processing delay
+                setTimeout(() => {
+                    generateResults();
+                    loadingElement.style.display = 'none';
+                    resultsSection.style.display = 'block';
+                    submitBtn.disabled = false;
+                    
+                    // Scroll to results
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+
+            // Handle reset
+            resetBtn.addEventListener('click', function() {
+                // Clear selections
+                userSelections = {
+                    acneType: null,
+                    sensitivity: null,
+                    ingredient: null,
+                    productForm: null
+                };
+                
+                // Remove selected classes
+                document.querySelectorAll('.option-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                // Reset progress
+                updateProgress();
+                
+                // Hide results
+                resultsSection.style.display = 'none';
+                
+                // Disable submit button
+                submitBtn.disabled = true;
+            });
+
+            // Setup social sharing
+            function setupSocialSharing() {
+                const shareText = `I just discovered my perfect acne-fighting solution with Acne Warrior! ${currentProduct.name} is recommended for my skin type. Check it out!`;
+                const shareUrl = encodeURIComponent(window.location.href);
+                const shareTextEncoded = encodeURIComponent(shareText);
+                
+                // Facebook Share
+                shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareTextEncoded}`;
+                
+                // Instagram (note: web sharing not directly supported, open in app or use copy)
+                shareInstagram.href = `https://www.instagram.com/?url=${shareUrl}`;
+                
+                // Threads Share
+                shareThreads.href = `https://www.threads.net/intent/post?text=${shareTextEncoded}&url=${shareUrl}`;
+                
+                // Pinterest Share
+                sharePinterest.href = `https://pinterest.com/pin/create/button/?url=${shareUrl}&description=${shareTextEncoded}`;
+                
+                // TikTok Share
+                shareTiktok.href = `https://www.tiktok.com/share?url=${shareUrl}`;
+                
+                // Open in new window for all social platforms
+                [shareFacebook, shareInstagram, shareThreads, sharePinterest, shareTiktok].forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.open(this.href, 'share', 'width=600,height=400');
+                    });
+                });
+            }
+
+            // Generate results based on user selections
+            function generateResults() {
+                // Create a key to look up the product
+                const productKey = `${userSelections.acneType}-${userSelections.sensitivity}-${userSelections.ingredient}-${userSelections.productForm}`;
+                
+                // Get the product or use default
+                currentProduct = products[productKey] || defaultProduct;
+                
+                // Generate HTML for the product
+                const productHTML = `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${currentProduct.image}" alt="${currentProduct.name}">
+                        </div>
+                        <div class="product-content">
+                            <h3>${currentProduct.name}</h3>
+                            <div class="product-meta">
+                                ${currentProduct.tags.map(tag => `<span class="meta-tag">${tag}</span>`).join('')}
+                            </div>
+                            <div class="product-description">
+                                <h4><i class="fas fa-microscope"></i> The Science</h4>
+                                <p>${currentProduct.science}</p>
+                            </div>
+                            <div class="product-description">
+                                <h4><i class="fas fa-award"></i> Why It's Recommended</h4>
+                                <p>${currentProduct.description}</p>
+                            </div>
+                            <div class="product-description">
+                                <h4><i class="fas fa-list-alt"></i> How to Use</h4>
+                                <p>${currentProduct.usage}</p>
+                            </div>
+                            <a href="${currentProduct.affiliateLink}" target="_blank" class="affiliate-link">
+                                <i class="fas fa-shopping-cart"></i> Check Price on Amazon
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                // Add additional educational content based on selections
+                let educationalContent = '';
+                
+                if (userSelections.acneType === 'comedonal') {
+                    educationalContent += `
+                        <div class="product-card">
+                            <div class="product-content">
+                                <h3><i class="fas fa-graduation-cap"></i> Understanding Comedonal Acne</h3>
+                                <div class="product-description">
+                                    <p>Comedonal acne (blackheads and whiteheads) occurs when hair follicles become clogged with oil and dead skin cells. The key to treatment is regular exfoliation with ingredients like Salicylic Acid that can penetrate inside pores.</p>
+                                    <p><strong>Pro Tip:</strong> Avoid overly harsh scrubs which can irritate skin and worsen acne. Chemical exfoliants like Salicylic Acid are generally more effective and gentle.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (userSelections.acneType === 'inflammatory') {
+                    educationalContent += `
+                        <div class="product-card">
+                            <div class="product-content">
+                                <h3><i class="fas fa-graduation-cap"></i> Understanding Inflammatory Acne</h3>
+                                <div class="product-description">
+                                    <p>Inflammatory acne appears as red, tender bumps caused by bacteria, excess oil, and inflammation in the pores. The key is to reduce inflammation while treating the underlying causes.</p>
+                                    <p><strong>Pro Tip:</strong> Be gentle with inflamed skin. Avoid picking or squeezing, which can lead to scarring and further inflammation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (userSelections.acneType === 'cystic') {
+                    educationalContent += `
+                        <div class="product-card">
+                            <div class="product-content">
+                                <h3><i class="fas fa-graduation-cap"></i> Understanding Cystic Acne</h3>
+                                <div class="product-description">
+                                    <p>Cystic acne is the most severe form, characterized by deep, painful lumps beneath the skin surface. It's often related to hormonal fluctuations and may require prescription treatments.</p>
+                                    <p><strong>Pro Tip:</strong> If over-the-counter treatments don't improve cystic acne within 4-6 weeks, consider consulting a dermatologist for prescription options.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Update results content
+                resultsContent.innerHTML = productHTML + educationalContent;
+                
+                // Setup social sharing with the current product
+                setupSocialSharing();
+            }
+        });
+    </script>
+</body>
+</html>
